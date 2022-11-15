@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 # request обязательный параметр и ссылка на класс HttpRequest
 # HttpResponse простое представление страницы (заглушка)
 def index(request):
-    return HttpResponse('Страница приложения women.')
+    return render(request, 'women/index.html')  # путь указываем без папки потому что путь к папке уже прописан в настройках
 
 def categories(request, cat):  # второй аргумент это числовой параметр
     if request.GET:

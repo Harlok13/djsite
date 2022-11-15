@@ -7,4 +7,7 @@ class Women(models.Model):  # последовательность полей б
     # необходимо прописать следующие константы MEDIA ROOT и MEDIA_URL
     time_create = models.DateTimeField(auto_now_add=True)  # 1ый аргумент будет использоваться один раз при создании записи
     time_update = models.DateTimeField(auto_now=True)  # 1ый аргумент будет использоваться каждый раз при изменении записи
-    is_published = models.DateTimeField(default=True )  # 1ый аргумент будет отображать опубликована ли запись
+    is_published = models.BooleanField(default=True )  # 1ый аргумент будет отображать опубликована ли запись
+
+    def __str__(self):
+        return self.title
