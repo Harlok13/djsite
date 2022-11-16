@@ -3,10 +3,13 @@ from women.views import *
 
 
 urlpatterns = [
-    path("", index),  # http://127.0.0.1:8000/
-    path("cats/<slug:cat>/", categories),  # http://127.0.0.1:8000/cats/
-    re_path(r'^archive/(?P<year>[0-9]{4})/', archive),
-    path("about/", about)
+    path("", index, name='home'),  # http://127.0.0.1:8000/
+    path("about/", about, name='about'),
+    path("addpage/", addpage, name='add_page'),
+    path("cotact/", contact, name='contact'),
+    path("login/", login, name='login')
+    # path("cats/<slug:cat>/", categories),  # http://127.0.0.1:8000/cats/
+    # re_path(r'^archive/(?P<year>[0-9]{4})/', archive),
 ]
 
 # handler404 = pageNotFound

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from coolsite import settings
-from women.views import index, categories
+from women.views import index
 
 # include() позволяет использовать url адреса прописанные в самом приложении (это позволит использовать
 # приложение в других проектах) и сократить код в этом файле
