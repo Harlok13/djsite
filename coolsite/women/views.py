@@ -18,7 +18,8 @@ context = {
 }
 
 def index(request):
-    return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке уже прописан в настройках
+    return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке
+    # уже прописан в настройках
 
 
 def about(request):
@@ -37,6 +38,10 @@ def contact(request):
 
 def login(request):
     return HttpResponse('')
+
+
+def show_post(request, post_id):
+    return HttpResponse(f'Отображение статьи с id = {post_id}')
 
 
 
