@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from women.models import Women, Category
 
@@ -10,30 +10,28 @@ menu = [
 ]
 # request обязательный параметр и ссылка на класс HttpRequest
 # HttpResponse простое представление страницы (заглушка)
-posts = Women.objects.all()  # все данные с бд помещаем в переменную posts
-cats = Category.objects.all()
-context = {
-    'posts': posts,
-    'menu': menu,
-    'title': 'Главная страница',
-    'cats': cats,
-    'cat_selected': 0
-}
 
 
 def index(request):
+    posts = Women.objects.all()  # все данные с бд помещаем в переменную posts
+    cats = Category.objects.all()
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': 'Главная страница',
+        'cats': cats,
+        'cat_selected': 0
+    }
     return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке
     # уже прописан в настройках
 
 
 def about(request):
-    context['title'] = 'О нас'
-    return render(request, 'women/about.html', context=context)
+    return render(request, 'women/about.html')
 
 
 def addpage(request):
-    context['title'] = 'Добавить запись'
-    return render(request, 'women/add_page.html', context=context)
+    return render(request, 'women/add_page.html')
 
 
 def contact(request):
@@ -50,7 +48,19 @@ def show_post(request, post_id):
 
 
 def show_category(request, cat_id):
-    return HttpResponse(f'Отображение категории с id = {cat_id}')
+    """Категории"""
+    posts = Women.objects.filter(cat_id=cat_id)
+    cats = Category.objects.all()
+    if len(posts) == 0:
+        raise Http404()
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': 'Отображение по рубрикам ',
+        'cats': cats,
+        'cat_selected': cat_id
+    }
+    return render(request, 'women/index.html', context=context)
 
 
 

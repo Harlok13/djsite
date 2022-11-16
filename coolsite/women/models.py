@@ -21,6 +21,10 @@ class Women(models.Model):  # последовательность полей б
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_id': self.pk})
 
+    class Meta:
+        verbose_name = 'Известные женщины'
+        verbose_name_plural = 'Известные женщины'
+        ordering = ['time_create', 'title']  # сортировка (на сайте не сортируюется)
 
 class Category(models.Model):
     """Категории"""
