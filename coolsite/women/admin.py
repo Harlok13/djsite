@@ -7,6 +7,8 @@ class WomenAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')  # поля, на которые мы можем кликнуть и перейти на соответствующую статью для
     # ее редактирования
     search_fields = ('title', 'content')  # по каким полям можно производить поиск
+    list_editable = ('is_published',)  # создает редактируемое поле в админке
+    list_filter = ('is_published', 'time_create')  # позволяет сортировать записи по этим полям в админке
 
 
 class CategoryAdmin(admin.ModelAdmin):

@@ -11,9 +11,11 @@ class Women(models.Model):  # последовательность полей б
                               verbose_name='Фото')  # чтобы Джанго имел возможность выполнять операции загрузки
     # в настройках необходимо прописать следующие константы MEDIA_ROOT и MEDIA_URL
     time_create = models.DateTimeField(auto_now_add=True,
-                                       verbose_name='Время создания')  # 1ый аргумент будет использоваться один раз при создании записи
+                                       verbose_name='Время создания')  # 1ый аргумент будет использоваться один
+    # раз при создании записи
     time_update = models.DateTimeField(auto_now=True,
-                                       verbose_name='Время изменения')  # 1ый аргумент будет использоваться каждый раз при изменении записи
+                                       verbose_name='Время изменения')  # 1ый аргумент будет использоваться каждый
+    # раз при изменении записи
     is_published = models.BooleanField(default=True,
                                        verbose_name='Публикация')  # 1ый аргумент будет отображать опубликована ли запись
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True,
@@ -36,7 +38,8 @@ class Women(models.Model):  # последовательность полей б
 
 class Category(models.Model):
     """Категории"""
-    name = models.CharField(max_length=100, db_index=True)  # второй аргумент означает, что поле будет индексируемым,
+    name = models.CharField(max_length=100, db_index=True,
+                            verbose_name='Категория')  # второй аргумент означает, что поле будет индексируемым,
 
     # т.е. поиск по нему будет происходить быстрее
 
