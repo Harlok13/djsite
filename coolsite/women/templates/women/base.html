@@ -36,16 +36,16 @@
 <tr>
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
-          {% get_categories %}
+           {% getcats as categories %}
 
 	<ul id="leftchapters">
 		{% if cat_selected == 0 %}
       <li class="selected">Все категории</li>
     {% else %}
-      <li><a href="{% url 'home' %}"></a></li>
+      <li><a href="{% url 'home' %}">Все категории</a></li>
     {% endif %}
 
-  {% for c in cats %}
+  {% for c in categories %}
     {% if c.pk == cat_selected %}
       <li class="selected">{{ c.name }}</li>
     {% else %}
