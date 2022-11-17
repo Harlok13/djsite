@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from women.models import Women, Category
 
 # menu = [
@@ -41,7 +41,14 @@ def login(request):
 
 
 def show_post(request, post_id):
-    return HttpResponse(f'Отображение статьи с id = {post_id}')
+    post = get_object_or_404(Women, pk=post_id)
+    context = {  # эти параметры мы передаем в html файл
+        'posts': post,
+        'title': post.title,
+        'cat_selected': post.cat_id  # номер рубрики с которой связана статья
+    }
+
+    return render(request, 'women/post.html', context=context)
 
 
 def show_category(request, cat_id):
@@ -52,7 +59,7 @@ def show_category(request, cat_id):
         raise Http404()
     context = {
         'posts': posts,
-        'title': 'Отображение по рубрикам ',
+        'title': 'Отображение по рубрикам',
         'cat_selected': cat_id
     }
     return render(request, 'women/index.html', context=context)
