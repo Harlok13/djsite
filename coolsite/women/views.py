@@ -43,7 +43,7 @@ def login(request):
 def show_post(request, post_id):
     post = get_object_or_404(Women, pk=post_id)
     context = {  # эти параметры мы передаем в html файл
-        'posts': post,
+        'post': post,
         'title': post.title,
         'cat_selected': post.cat_id  # номер рубрики с которой связана статья
     }
