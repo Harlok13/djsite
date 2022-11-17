@@ -2,12 +2,12 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from women.models import Women, Category
 
-menu = [
-    {'title': 'О сайте', 'url_name': 'about'},
-    {'title': 'Добавить статью', 'url_name': 'add_page'},
-    {'title': 'Обратная связь', 'url_name': 'contact'},
-    {'title': 'Вход', 'url_name': 'login'},
-]
+# menu = [
+#     {'title': 'О сайте', 'url_name': 'about'},
+#     {'title': 'Добавить статью', 'url_name': 'add_page'},
+#     {'title': 'Обратная связь', 'url_name': 'contact'},
+#     {'title': 'Вход', 'url_name': 'login'},
+# ]
 # request обязательный параметр и ссылка на класс HttpRequest
 # HttpResponse простое представление страницы (заглушка)
 
@@ -16,9 +16,8 @@ def index(request):
     posts = Women.objects.all()  # все данные с бд помещаем в переменную posts
     context = {
         'posts': posts,
-        'menu': menu,
         'title': 'Главная страница',
-        'cat_selected': 0
+        'cat_selected': 0  # этот параметр нужно оставить, он используется не в теге
     }
     return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке
     # уже прописан в настройках
@@ -34,7 +33,7 @@ def addpage(request):
 
 def contact(request):
     # context['title'] = 'Обратная связь'
-    return HttpResponse('')
+    return render(request, 'women/contact.html')
 
 
 def login(request):
@@ -53,7 +52,6 @@ def show_category(request, cat_id):
         raise Http404()
     context = {
         'posts': posts,
-        'menu': menu,
         'title': 'Отображение по рубрикам ',
         'cat_selected': cat_id
     }
