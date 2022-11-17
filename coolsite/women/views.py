@@ -2,12 +2,6 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from women.models import Women, Category
 
-# menu = [
-#     {'title': 'О сайте', 'url_name': 'about'},
-#     {'title': 'Добавить статью', 'url_name': 'add_page'},
-#     {'title': 'Обратная связь', 'url_name': 'contact'},
-#     {'title': 'Вход', 'url_name': 'login'},
-# ]
 # request обязательный параметр и ссылка на класс HttpRequest
 # HttpResponse простое представление страницы (заглушка)
 
@@ -40,8 +34,8 @@ def login(request):
     return HttpResponse('')
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(Women, pk=post_id)
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
     context = {  # эти параметры мы передаем в html файл
         'post': post,
         'title': post.title,
