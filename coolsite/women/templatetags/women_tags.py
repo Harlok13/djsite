@@ -10,6 +10,7 @@ def get_categories(filter=None):
     else:
         return Category.objects.filter(pk=filter)  # возвращение всех записей этой модели в виде коллекций
 
+
 @register.inclusion_tag('women/tags/list_categories.html')
 def show_categories(sort=None, cat_selected=0):
     if not sort:

@@ -1,5 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
+
+from women.forms import AddPostForm
 from women.models import Women, Category
 
 # request обязательный параметр и ссылка на класс HttpRequest
@@ -22,7 +24,8 @@ def about(request):
 
 
 def addpage(request):
-    return render(request, 'women/add_page.html')
+    form = AddPostForm()
+    return render(request, 'women/addpage.html', {'title': 'Добавление статьи', 'form': form})
 
 
 def contact(request):
