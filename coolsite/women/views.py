@@ -1,23 +1,27 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 
 from women.forms import AddPostForm
 from women.models import Women, Category
 
-# request обязательный параметр и ссылка на класс HttpRequest
-# HttpResponse простое представление страницы (заглушка)
 
 
-def index(request):
-    posts = Women.objects.all()  # все данные с бд помещаем в переменную posts
-    context = {
-        'posts': posts,
-        'title': 'Главная страница',
-        'cat_selected': 0  # этот параметр нужно оставить, он используется не в теге
-    }
-    return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке
-    # уже прописан в настройках
 
+class WomenHome(ListView):
+    model = Women  # создает коллекцию из этой модели
+    template_name = 'women/index.html'  # переназначаем путь
+    context_object_name = 'posts'  # меняет имя переменной с object_list на указанный нами
+    # extra_context = {'title': 'Главная страница'}  # меняет заголовок. p.s. только для статических (неизменяемых) данных. списки задать не получится
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)  # обращаемся к базовому классу ListView и берем у него базовый контекст. этой функции мы передаем все именованные параметры
+        context['title'] = 'Главная страница'
+        context['cat_selected'] = 0
+        return context
+
+    def get_queryset(self):
+        return Women.objects.filter(is_published=True)  # возвращает только опубликованные записи
 
 def about(request):
     return render(request, 'women/about.html')
@@ -75,8 +79,18 @@ def show_category(request, cat_id):
 
 
 
+# request обязательный параметр и ссылка на класс HttpRequest
+# HttpResponse простое представление страницы (заглушка)
 
-
+# def index(request):
+#     posts = Women.objects.all()  # все данные с бд помещаем в переменную posts
+#     context = {
+#         'posts': posts,
+#         'title': 'Главная страница',
+#         'cat_selected': 0  # этот параметр нужно оставить, он используется не в теге
+#     }
+#     return render(request, 'women/index.html', context=context)  # путь указываем без папки потому что путь к папке
+#     # уже прописан в настройках
 
 # def categories(request, cat):  # второй аргумент это числовой параметр
 #     if request.GET:
