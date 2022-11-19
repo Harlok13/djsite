@@ -24,7 +24,12 @@ def about(request):
 
 
 def addpage(request):
-    form = AddPostForm()
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostForm()
     return render(request, 'women/addpage.html', {'title': 'Добавление статьи', 'form': form})
 
 
