@@ -20,7 +20,7 @@ class WomenHome(ListView):
         context['cat_selected'] = 0
         return context
 
-    def get_queryset(self):
+    def get_queryset(self):  # будет возвращать то, что прочитано из этой функции, а не все записи
         return Women.objects.filter(is_published=True)  # возвращает только опубликованные записи
 
 def about(request):
@@ -63,18 +63,31 @@ def show_post(request, post_slug):
     return render(request, 'women/post.html', context=context)
 
 
-def show_category(request, cat_id):
-    """Категории"""
-    posts = Women.objects.filter(cat_id=cat_id)
+class WomenCategory(ListView):
+    model = Category
+    # template_name =
 
-    if len(posts) == 0:
-        raise Http404()
-    context = {
-        'posts': posts,
-        'title': 'Отображение по рубрикам',
-        'cat_selected': cat_id
-    }
-    return render(request, 'women/index.html', context=context)
+
+
+
+
+
+
+
+
+
+# def show_category(request, cat_id):
+#     """Категории"""
+#     posts = Women.objects.filter(cat_id=cat_id)
+#
+#     if len(posts) == 0:
+#         raise Http404()
+#     context = {
+#         'posts': posts,
+#         'title': 'Отображение по рубрикам',
+#         'cat_selected': cat_id
+#     }
+#     return render(request, 'women/index.html', context=context)
 
 
 
